@@ -1,28 +1,79 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="root">
+    <Search class="search" @loadStart="onLoadStart" @loadComplete="onLoadComplete"/>
+    <Result :items="items" :loadProgress="loadProgress"/>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import 'normalize.css'
+import Search from "@/components/Search";
+import Result from "@/components/Result";
+ 
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Search,
+    Result
+  },
+  data() {
+    return {
+      items: [],
+      loadProgress: false,
+    };
+  },
+  methods: {
+    onLoadStart() {
+      this.loadProgress = true;
+    },
+    onLoadComplete({ results }) {
+      this.items = results;
+      this.loadProgress = false;
+    },
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.root {
+  padding-top: 70px;
+}
+ 
+ 
+.search {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 </style>
+ 
+ 
+<style>
+html {
+  font-size: 62.5%;
+}
+ 
+ 
+body {
+  margin: 0;
+  color: #35495e;
+}
+ 
+ 
+p {
+  margin: 0;
+}
+ 
+ 
+ul {
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+
+
+  
+
